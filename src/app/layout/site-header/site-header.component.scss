@@ -1,0 +1,155 @@
+:host {
+  display: block;
+  position: relative;
+  z-index: 20;
+}
+
+.header {
+  position: relative;
+  background: var(--ivory);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: var(--header-height);
+}
+
+.wordmark {
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  margin-right: -0.5rem;
+  padding: 0 0.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.nav__list {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__link {
+  display: block;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--ochre);
+  }
+
+  &.is-active {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--ochre);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.55em;
+  }
+}
+
+/* ─── Narrow phones: keep wordmark and menu button on one line ─── */
+
+@media (max-width: 400px) {
+  .header__inner {
+    gap: 1rem;
+    min-height: 4.5rem;
+  }
+
+  .wordmark {
+    font-size: 0.98rem;
+    letter-spacing: 0.2em;
+  }
+}
+
+/* ─── Small screens: disclosure menu panel ─── */
+
+@media (max-width: 1023px) {
+  .is-open .nav__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: block;
+    padding: 0.5rem var(--gutter) 1.5rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--ivory);
+    box-shadow: 0 18px 30px -24px rgb(52 70 76 / 0.35);
+  }
+
+  .is-open .nav__link {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    letter-spacing: 0;
+  }
+
+  .is-open li:last-child .nav__link {
+    border-bottom: 0;
+  }
+}
+
+/* ─── Wide screens: inline navigation ─── */
+
+@media (min-width: 1024px) {
+  .nav__toggle {
+    display: none;
+  }
+
+  .nav__list {
+    display: flex;
+    gap: clamp(1.5rem, 2.6vw, 2.75rem);
+  }
+
+  .nav__link {
+    padding-block: 0.75rem;
+  }
+}
+
+/* ─── Home: header floats over the hero's light upper area ─── */
+
+@media (min-width: 720px) {
+  :host(.is-overlay) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .header--overlay {
+    background: transparent;
+  }
+
+  .header--overlay.is-open {
+    background: var(--ivory);
+  }
+}

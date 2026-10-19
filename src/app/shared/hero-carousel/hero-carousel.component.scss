@@ -1,0 +1,185 @@
+:host {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--ivory);
+}
+
+/* ─── Heading ─── */
+
+.hero__intro {
+  order: 1;
+  padding-block: 1.25rem 2rem;
+}
+
+.hero__copy {
+  max-width: 38rem;
+}
+
+/* ─── Photographs ─── */
+
+.hero__media {
+  order: 2;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--sand);
+  touch-action: pan-y;
+}
+
+.hero__slide {
+  --focal: var(--focal-narrow);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.9s var(--ease),
+    visibility 0s linear 0.9s;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.9s var(--ease),
+      visibility 0s;
+  }
+
+  app-artwork-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.hero__veil {
+  display: none;
+}
+
+/* ─── Controls ─── */
+
+.hero__controls {
+  order: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem calc(var(--gutter) - 0.75rem) 0;
+}
+
+.hero__button {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+
+  &:hover {
+    background: rgb(52 70 76 / 0.07);
+  }
+}
+
+.hero__count {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--slate);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.hero__current {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.hero__divider {
+  width: 1.75rem;
+  height: 1px;
+  background: var(--ochre);
+}
+
+/* ─── Wide screens: image fills the hero; heading over a soft ivory sky ─── */
+
+@media (min-width: 720px) {
+  .hero {
+    display: block;
+    /* Never taller than the screen (landscape phones), never cramped on large displays. */
+    height: clamp(min(520px, 94svh), min(88svh, 66vw), 940px);
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+
+  .hero__slide {
+    --focal: var(--focal-wide);
+  }
+
+  /* Fades the top of the photograph into ivory behind the navigation and heading. */
+  .hero__veil {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgb(246 243 236 / 0.97) 0%,
+      rgb(246 243 236 / 0.8) 11%,
+      rgb(246 243 236 / 0.35) 24%,
+      rgb(246 243 236 / 0) 40%
+    );
+    pointer-events: none;
+  }
+
+  .hero__intro {
+    position: absolute;
+    z-index: 2;
+    top: calc(var(--header-height) + clamp(1.5rem, 6vh, 4.5rem));
+    left: 0;
+    right: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .hero__copy {
+    position: relative;
+    width: fit-content;
+    pointer-events: auto;
+
+    /* A soft ivory glow only behind the words, for reliable contrast on any photograph. */
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: -2.5rem -4rem -2.5rem -3rem;
+      background: radial-gradient(closest-side, rgb(246 243 236 / 0.86), rgb(246 243 236 / 0.6) 55%, rgb(246 243 236 / 0));
+      filter: blur(6px);
+    }
+  }
+
+  .hero__controls {
+    position: absolute;
+    z-index: 2;
+    left: var(--gutter);
+    bottom: clamp(1.25rem, 3vw, 2rem);
+    padding: 0.25rem;
+    background: rgb(246 243 236 / 0.92);
+  }
+}
+
+@media (min-width: 1312px) {
+  .hero__controls {
+    left: calc((100vw - var(--container)) / 2);
+  }
+}

@@ -1,0 +1,252 @@
+/* ─── A. Hero copy (projected into the carousel) ─── */
+
+.hero-title {
+  font-size: clamp(2.6rem, 6vw, 5.25rem);
+  line-height: 1.02;
+}
+
+.hero-lead {
+  margin: 1rem 0 0;
+  color: var(--ink);
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  line-height: 1.5;
+}
+
+/* ─── B. Explore the work ─── */
+
+.explore__list {
+  display: grid;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.explore__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.explore__image {
+  display: block;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: var(--sand);
+
+  &.is-contained {
+    background: var(--ivory);
+  }
+}
+
+.explore__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.4vw, 1.95rem);
+  line-height: 1.2;
+}
+
+.explore__arrow {
+  color: var(--ochre-text);
+  transition: transform 0.3s var(--ease);
+}
+
+.explore__desc {
+  display: block;
+  margin-top: 0.4rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.9875rem;
+}
+
+.explore__link:hover,
+.explore__link:focus-visible {
+  .explore__arrow {
+    transform: translateX(5px);
+  }
+  .explore__label {
+    text-decoration: underline;
+    text-decoration-color: var(--ochre);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+}
+
+@media (min-width: 720px) {
+  .explore__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+}
+
+/* ─── C. A mark in the sand ─── */
+
+.mark {
+  padding-top: 0;
+}
+
+.mark__grid {
+  display: grid;
+  gap: 3rem;
+}
+
+.mark__quote {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.mark__text .text-link {
+  margin-top: 1rem;
+}
+
+/* Phones: featured artwork runs edge to edge, like the collection pages. */
+@media (max-width: 899px) {
+  .mark__media {
+    --trigger-inset: var(--gutter);
+    margin-inline: calc(-1 * var(--gutter));
+  }
+}
+
+@media (max-width: 719px) {
+  .perspective__media {
+    --trigger-inset: var(--gutter);
+    margin-inline: calc(-1 * var(--gutter));
+  }
+}
+
+@media (min-width: 900px) {
+  .mark__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+}
+
+/* ─── D. The tide returns ─── */
+
+.tide {
+  background: var(--mist);
+}
+
+.tide__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.tide__media {
+  order: -1;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+
+.tide__text {
+  padding-block: 2.5rem var(--section-space);
+}
+
+.tide__quote {
+  display: block;
+  margin-block: 2rem;
+}
+
+/* Wide screens: a full-bleed wave photograph; pale mist-blue covers only the text side. */
+@media (min-width: 960px) {
+  .tide__inner {
+    --start: max(var(--gutter), calc((100% - var(--container)) / 2));
+    position: relative;
+    display: block;
+    min-height: clamp(560px, 42vw, 720px);
+  }
+
+  .tide__media {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        var(--mist) 0,
+        rgb(226 235 234 / 0.94) calc(var(--start) + 27rem),
+        rgb(226 235 234 / 0) calc(var(--start) + 44rem)
+      );
+      pointer-events: none;
+    }
+  }
+
+  .tide__text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    min-height: inherit;
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+
+  .tide__copy {
+    max-width: 28rem;
+  }
+}
+
+/* ─── E. Gary's perspective ─── */
+
+.perspective {
+  background: var(--sand);
+  text-align: center;
+}
+
+.perspective__heading {
+  margin-bottom: 1.75rem;
+}
+
+.perspective__media {
+  margin-block: clamp(2.5rem, 6vw, 4.5rem);
+  text-align: start;
+}
+
+.perspective__words {
+  max-width: 40rem;
+  margin-inline: auto;
+
+  .statement {
+    max-width: none;
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    line-height: 1.8;
+  }
+
+  cite {
+    font-style: italic;
+  }
+
+  .text-link {
+    margin-top: 2rem;
+  }
+}
+
+.perspective__story {
+  margin: 2rem auto 0;
+  text-align: start;
+}
+
+/* ─── F. Contact invitation ─── */
+
+.invite__inner {
+  max-width: 44rem;
+  text-align: center;
+
+  p {
+    margin-inline: auto;
+    max-width: 32rem;
+  }
+
+  .text-link {
+    margin-top: 1rem;
+  }
+}

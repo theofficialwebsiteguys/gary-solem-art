@@ -1,0 +1,351 @@
+.viewer {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(246 243 236 / 0.985);
+  color: var(--ink);
+  overscroll-behavior: contain;
+
+  &::backdrop {
+    background: rgb(246 243 236 / 0.9);
+  }
+
+  &[open] {
+    animation: viewer-in 0.25s var(--ease);
+  }
+}
+
+@keyframes viewer-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.viewer__frame {
+  display: grid;
+  /* minmax(0, 1fr): the toolbar must never widen the viewer beyond the screen. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100dvh;
+}
+
+/* ─── Top bar ─── */
+
+.viewer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem clamp(0.5rem, 2vw, 1.5rem) 0.5rem clamp(1rem, 3vw, 2rem);
+}
+
+.viewer__label {
+  display: flex;
+  gap: 0.9rem;
+  align-items: baseline;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+}
+
+.viewer__collection {
+  overflow: hidden;
+  color: var(--ochre-text);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.viewer__count {
+  flex: none;
+  color: var(--slate);
+  font-variant-numeric: tabular-nums;
+}
+
+.viewer__tools {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.viewer__tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 0.6rem;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: var(--sand);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.viewer__tool-label,
+.viewer__zoom-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.viewer__zoom-label {
+  display: none;
+}
+
+.viewer__close {
+  margin-left: 0.5rem;
+}
+
+/* ─── Image area ─── */
+
+.viewer__body {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr);
+  align-items: center;
+  min-height: 0;
+  padding: 0 clamp(0.25rem, 1vw, 1rem) clamp(0.5rem, 2vh, 1.25rem);
+}
+
+.viewer__stage {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+
+  .is-zoomed & {
+    overflow: auto;
+    cursor: grab;
+    touch-action: pan-x pan-y;
+    background: var(--sand);
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+.viewer__fit {
+  cursor: zoom-in;
+}
+
+/* Centres a smaller-than-stage image while still letting a larger one scroll from its edge. */
+.viewer__canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100%;
+  min-height: 100%;
+  width: max-content;
+}
+
+.viewer__detail {
+  max-width: none;
+  flex: none;
+}
+
+.viewer__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 64px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--sand);
+  }
+}
+
+.viewer__nav--prev {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.viewer__nav--next {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.viewer__status {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  margin: 0;
+  padding: 0.4rem 0.9rem;
+  transform: translateX(-50%);
+  background: var(--ivory);
+  font-size: 0.875rem;
+}
+
+/* ─── Caption ─── */
+
+.viewer__caption {
+  max-height: 30vh;
+  overflow-y: auto;
+  border-top: 1px solid var(--line);
+  padding: 1.25rem clamp(1rem, 4vw, 2rem) 1.5rem;
+  overscroll-behavior: contain;
+}
+
+.viewer__caption-inner {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.viewer__title {
+  margin-bottom: 0.75rem;
+  font-size: 1.6rem;
+}
+
+.viewer__statement {
+  margin: 0;
+  color: var(--slate);
+}
+
+.viewer .poem {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+}
+
+.viewer__attribution {
+  margin: 0.6rem 0 0;
+  color: var(--ochre-text);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+}
+
+.viewer__transcript {
+  margin-top: 1rem;
+}
+
+.viewer__transcript-label {
+  margin: 0 0 0.35rem;
+  color: var(--ochre-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.viewer__transcript-text {
+  margin: 0;
+  color: var(--slate);
+  font-size: 0.9375rem;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+/* ─── Phones: paging buttons move below the image so they never cover the artwork ─── */
+
+@media (max-width: 719px) {
+  .viewer__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding-inline: 0;
+  }
+
+  .viewer__stage {
+    grid-column: 1 / -1;
+  }
+
+  .viewer__nav {
+    grid-row: 2;
+    width: 100%;
+    height: 48px;
+  }
+
+  .viewer__nav--prev {
+    grid-column: 1;
+  }
+
+  .viewer__nav--next {
+    grid-column: 2;
+  }
+
+  .viewer__bar {
+    padding-left: 1rem;
+  }
+
+  /* At rest: one labelled Zoom button and Close. Zoomed: zoom out / in / Fit / Close. */
+  .viewer__frame:not(.is-zoomed) {
+    .viewer__tool--out,
+    .viewer__tool--toggle {
+      display: none;
+    }
+
+    .viewer__zoom-label {
+      display: inline;
+    }
+  }
+
+  .is-zoomed {
+    .viewer__collection {
+      display: none;
+    }
+
+    .viewer__tool:disabled {
+      display: none;
+    }
+  }
+
+  .viewer__caption {
+    max-height: 38vh;
+  }
+}
+
+/* Landscape phones: the text sits beside the artwork so the image keeps the full height. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .viewer__frame {
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 36%);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .viewer__bar {
+    grid-column: 1 / -1;
+    padding-block: 0.15rem;
+  }
+
+  .viewer__body {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .has-caption:not(.is-zoomed) .viewer__body {
+    grid-column: 1;
+  }
+
+  .viewer__caption {
+    grid-column: 2;
+    grid-row: 2;
+    max-height: none;
+    border-top: 0;
+    border-left: 1px solid var(--line);
+    padding: 0.5rem 1.25rem 1rem;
+  }
+}

@@ -1,0 +1,53 @@
+<section class="hero" [attr.aria-roledescription]="total() > 1 ? 'carousel' : null" [attr.aria-label]="label()">
+  <div class="hero__intro">
+    <div class="container">
+      <div class="hero__copy">
+        <ng-content />
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__media" (pointerdown)="onPointerDown($event)" (pointerup)="onPointerUp($event)" (pointercancel)="onPointerUp($event)">
+    @for (slide of slides(); track slide.artwork.id; let i = $index) {
+      <div
+        class="hero__slide"
+        [class.is-active]="i === index()"
+        [attr.role]="total() > 1 ? 'group' : null"
+        [attr.aria-roledescription]="total() > 1 ? 'slide' : null"
+        [attr.aria-label]="total() > 1 ? i + 1 + ' of ' + total() : null"
+        [attr.aria-hidden]="i !== index() ? 'true' : null"
+        [style.--focal-wide]="slide.focal"
+        [style.--focal-narrow]="slide.mobileFocal"
+      >
+        @if (isRendered(i)) {
+          <app-artwork-image
+            [artwork]="slide.artwork"
+            fit="cover"
+            focal="var(--focal)"
+            sizes="100vw"
+            [priority]="i === 0"
+            (loaded)="i === 0 && onFirstLoaded()"
+          />
+        }
+      </div>
+    }
+    <div class="hero__veil" aria-hidden="true"></div>
+  </div>
+
+  @if (total() > 1) {
+    <div class="hero__controls">
+      <button type="button" class="hero__button" (click)="previous()" aria-label="Previous image">
+        <app-icon name="arrow-left" />
+      </button>
+      <p class="hero__count" aria-hidden="true">
+        <span class="hero__current">{{ pad(index() + 1) }}</span>
+        <span class="hero__divider"></span>
+        <span>{{ pad(total()) }}</span>
+      </p>
+      <button type="button" class="hero__button" (click)="next()" aria-label="Next image">
+        <app-icon name="arrow-right" />
+      </button>
+    </div>
+    <p class="visually-hidden" aria-live="polite">{{ announcement() }}</p>
+  }
+</section>

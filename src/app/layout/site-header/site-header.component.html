@@ -1,0 +1,35 @@
+<header class="header" [class.header--overlay]="overlay()" [class.is-open]="menuOpen()">
+  <div class="header__inner container">
+    <a class="wordmark" routerLink="/">{{ site.name }}</a>
+
+    <nav class="nav" aria-label="Main">
+      <button
+        #toggle
+        type="button"
+        class="nav__toggle"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="main-menu"
+        (click)="toggleMenu()"
+      >
+        <app-icon [name]="menuOpen() ? 'close' : 'menu'" [size]="22" />
+        <span>Menu</span>
+      </button>
+
+      <ul id="main-menu" class="nav__list" role="list">
+        @for (item of nav; track item.path) {
+          <li>
+            <a
+              class="nav__link"
+              [routerLink]="item.path"
+              routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+              ariaCurrentWhenActive="page"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

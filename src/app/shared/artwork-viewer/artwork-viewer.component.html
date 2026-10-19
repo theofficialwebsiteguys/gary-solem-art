@@ -1,0 +1,125 @@
+<dialog
+  #dialog
+  class="viewer"
+  aria-labelledby="viewer-label"
+  (close)="onDialogClose()"
+  (click)="onBackdropClick($event)"
+  (keydown)="onKeydown($event)"
+>
+  @if (current(); as art) {
+    <div class="viewer__frame" [class.is-zoomed]="zoom() !== null" [class.has-caption]="hasCaption()">
+      <header class="viewer__bar">
+        <p class="viewer__label" id="viewer-label">
+          <span class="viewer__collection">{{ collectionLabel() }}</span>
+          @if (countLabel()) {
+            <span class="viewer__count" aria-hidden="true">{{ countLabel() }}</span>
+            <span class="visually-hidden">, {{ positionText() }}</span>
+          }
+        </p>
+
+        <div class="viewer__tools">
+          @if (canZoom()) {
+            <button type="button" class="viewer__tool viewer__tool--out" (click)="zoomOut()" [disabled]="zoom() === null" aria-label="Zoom out">
+              <app-icon name="minus" />
+            </button>
+            <button type="button" class="viewer__tool viewer__tool--in" (click)="zoomIn()" [disabled]="atFullSize()" aria-label="Zoom in">
+              <app-icon name="plus" />
+              <span class="viewer__zoom-label" aria-hidden="true">Zoom</span>
+            </button>
+            <button
+              type="button"
+              class="viewer__tool viewer__tool--toggle"
+              (click)="toggleActualSize()"
+              [attr.aria-label]="zoom() === null ? 'View at full size' : 'Fit to screen'"
+            >
+              <app-icon [name]="zoom() === null ? 'actual' : 'fit'" />
+              <span class="viewer__tool-label" aria-hidden="true">{{ zoom() === null ? 'Full size' : 'Fit' }}</span>
+            </button>
+          }
+          <button #closeButton type="button" class="viewer__tool viewer__close" (click)="close()" aria-label="Close viewer" autofocus>
+            <app-icon name="close" [size]="24" />
+          </button>
+        </div>
+      </header>
+
+      <div class="viewer__body">
+        @if (viewer.total() > 1) {
+          <button type="button" class="viewer__nav viewer__nav--prev" (click)="previous()" aria-label="Previous artwork">
+            <app-icon name="chevron-left" [size]="28" />
+          </button>
+        }
+
+        <div
+          #stage
+          class="viewer__stage"
+          [attr.tabindex]="zoom() !== null ? 0 : null"
+          [attr.aria-label]="zoom() !== null ? 'Zoomed artwork. Use the arrow keys to pan.' : null"
+          [attr.role]="zoom() !== null ? 'region' : null"
+          (pointerdown)="onPointerDown($event)"
+          (pointermove)="onPointerMove($event)"
+          (pointerup)="onPointerUp($event)"
+          (pointercancel)="onPointerUp($event)"
+          (dblclick)="onDoubleClick($event)"
+        >
+          @if (zoomedSize(); as size) {
+            <div class="viewer__canvas">
+              <img
+                class="viewer__detail"
+                [src]="art.detail.src"
+                [width]="art.detail.width"
+                [height]="art.detail.height"
+                [style.width.px]="size.width"
+                [style.height.px]="size.height"
+                [alt]="art.alt"
+                draggable="false"
+                (load)="onDetailLoaded()"
+              />
+            </div>
+          } @else {
+            <app-artwork-image class="viewer__fit" [artwork]="art" fit="contain" sizes="100vw" [priority]="true" />
+          }
+        </div>
+
+        @if (viewer.total() > 1) {
+          <button type="button" class="viewer__nav viewer__nav--next" (click)="next()" aria-label="Next artwork">
+            <app-icon name="chevron-right" [size]="28" />
+          </button>
+        }
+
+        @if (detailLoading()) {
+          <output class="viewer__status">Loading full-size image…</output>
+        }
+      </div>
+
+      @if (hasCaption() && zoom() === null) {
+        <section class="viewer__caption" tabindex="0" aria-label="About this artwork">
+          <div class="viewer__caption-inner">
+            @if (art.title) {
+              <h2 class="viewer__title">{{ art.title }}</h2>
+            }
+            @if (art.text; as text) {
+              @if (text.kind === 'poem') {
+                <p class="poem">
+                  @for (line of text.text | lines; track $index) {
+                    <span class="poem__line">{{ line }}</span>
+                  }
+                </p>
+              } @else {
+                <p class="viewer__statement">{{ text.text }}</p>
+              }
+              <p class="viewer__attribution">— {{ artist }}</p>
+            }
+            @if (art.transcript) {
+              <div class="viewer__transcript">
+                <p class="viewer__transcript-label">Text in the artwork</p>
+                <p class="viewer__transcript-text">{{ art.transcript }}</p>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <p class="visually-hidden" aria-live="polite">{{ positionText() }} {{ art.alt }}</p>
+    </div>
+  }
+</dialog>

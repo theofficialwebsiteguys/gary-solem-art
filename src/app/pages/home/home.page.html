@@ -1,0 +1,145 @@
+<!-- A. Hero -->
+<app-hero-carousel [slides]="heroSlides" label="Featured work">
+  <h1 class="hero-title">{{ copy.hero.title }}</h1>
+  <p class="hero-lead">{{ copy.hero.lead }}</p>
+</app-hero-carousel>
+
+<!-- B. Explore the work -->
+<section class="explore section" aria-labelledby="explore-heading">
+  <div class="container">
+    <h2 id="explore-heading">{{ copy.explore.heading }}</h2>
+    <span class="rule" aria-hidden="true"></span>
+
+    <ul class="explore__list" role="list">
+      @for (item of explore; track item.path) {
+        <li>
+          <a class="explore__link" [routerLink]="item.path">
+            <span class="explore__image" [class.is-contained]="item.image.fit === 'contain'">
+              <app-artwork-image
+                [artwork]="item.artwork"
+                [fit]="item.image.fit"
+                [focal]="item.image.focal"
+                sizes="(min-width: 1312px) 390px, (min-width: 720px) 31vw, 92vw"
+                alt=""
+              />
+            </span>
+            <span class="explore__label">
+              {{ item.label }}
+              <app-icon name="arrow-right" class="explore__arrow" />
+            </span>
+            <span class="explore__desc">{{ item.description }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- C. A mark in the sand -->
+<section class="mark section" aria-labelledby="mark-heading">
+  <div class="container mark__grid">
+    <div class="mark__text">
+      <p class="marker" aria-hidden="true">{{ copy.markInTheSand.marker }}</p>
+      <h2 id="mark-heading">{{ copy.markInTheSand.heading }}</h2>
+      <span class="rule" aria-hidden="true"></span>
+      <app-quote class="mark__quote" [text]="quotes.smoothState" />
+      <div class="prose">
+        @for (paragraph of copy.markInTheSand.body; track $index) {
+          <p>{{ paragraph }}</p>
+        }
+      </div>
+      <a class="text-link" [routerLink]="copy.markInTheSand.link.path">
+        <span>{{ copy.markInTheSand.link.label }}</span>
+        <app-icon name="arrow-right" />
+      </a>
+    </div>
+
+    @if (markArt) {
+      <div class="mark__media">
+        <app-artwork-trigger [artwork]="markArt" [group]="markGroup" sizes="(min-width: 1312px) 700px, (min-width: 900px) 56vw, 100vw" />
+      </div>
+    }
+  </div>
+</section>
+
+<!-- D. The tide returns -->
+<section class="tide" aria-labelledby="tide-heading">
+  <div class="tide__inner">
+    <div class="tide__text container">
+      <div class="tide__copy">
+        <p class="marker" aria-hidden="true">{{ copy.tideReturns.marker }}</p>
+        <h2 id="tide-heading">{{ copy.tideReturns.heading }}</h2>
+        <span class="rule" aria-hidden="true"></span>
+        <div class="prose">
+          @for (paragraph of copy.tideReturns.body; track $index) {
+            <p>{{ paragraph }}</p>
+          }
+        </div>
+        <app-quote class="tide__quote" [text]="quotes.rhythms" />
+        <a class="text-link" [routerLink]="copy.tideReturns.link.path">
+          <span>{{ copy.tideReturns.link.label }}</span>
+          <app-icon name="arrow-right" />
+        </a>
+      </div>
+    </div>
+    @if (tideArt) {
+      <div class="tide__media">
+        <app-artwork-image
+          [artwork]="tideArt"
+          fit="cover"
+          [focal]="copy.tideReturns.image.focal"
+          sizes="100vw"
+        />
+      </div>
+    }
+  </div>
+</section>
+
+<!-- E. Gary's perspective -->
+<section class="perspective section" aria-labelledby="perspective-heading">
+  <div class="container">
+    <h2 id="perspective-heading" class="eyebrow perspective__heading">{{ copy.perspective.heading }}</h2>
+    <app-quote [text]="quotes.feelHuman" align="center" size="large" />
+
+    @if (perspectiveArt) {
+      <div class="perspective__media">
+        <app-artwork-trigger [artwork]="perspectiveArt" [group]="perspectiveGroup" sizes="(min-width: 1312px) 1216px, (min-width: 720px) 92vw, 100vw" />
+      </div>
+    }
+
+    <div class="perspective__words">
+      <figure class="statement">
+        <blockquote>
+          <p>{{ findingReasons.text }}</p>
+        </blockquote>
+        <figcaption>— Gary Solem, <cite>Finding Reasons</cite></figcaption>
+      </figure>
+
+      @if (copy.perspective.story; as story) {
+        <div class="prose perspective__story">
+          @for (paragraph of story; track $index) {
+            <p>{{ paragraph }}</p>
+          }
+        </div>
+      }
+
+      <a class="text-link" [routerLink]="copy.perspective.link.path">
+        <span>{{ copy.perspective.link.label }}</span>
+        <app-icon name="arrow-right" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- F. Contact invitation -->
+<section class="invite section" aria-labelledby="invite-heading">
+  <div class="container invite__inner">
+    <h2 id="invite-heading">{{ copy.contact.heading }}</h2>
+    <span class="rule rule--center" aria-hidden="true"></span>
+    <p>{{ copy.contact.body }}</p>
+    <a class="text-link" [routerLink]="copy.contact.link.path">
+      <span>{{ copy.contact.link.label }}</span>
+      <app-icon name="arrow-right" />
+    </a>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+/* Shared styles for the collection pages (My Art, Direct Photography, Wave Photography). */
+
+.collection {
+  padding-bottom: var(--section-space);
+  scroll-margin-top: 1rem;
+  outline: none;
+}
+
+.collection + .collection {
+  padding-top: var(--section-space);
+  border-top: 1px solid var(--line);
+}
+
+.collection__head {
+  max-width: 44rem;
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+
+.intro-quote {
+  display: block;
+  margin-top: 2.5rem;
+}
+
+.subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.subnav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-decoration-color: var(--ochre);
+  text-underline-offset: 0.4em;
+
+  &:hover {
+    text-decoration-color: var(--ink);
+  }
+}
+
+.lead-statement {
+  margin-top: 2.5rem;
+  font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+  line-height: 1.75;
+}
+
+.definition {
+  max-width: var(--measure);
+  margin: 2.5rem 0 0;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--ochre);
+
+  .attribution {
+    display: block;
+    margin-top: 0.75rem;
+    color: var(--ochre-text);
+    font-size: 0.875rem;
+  }
+}

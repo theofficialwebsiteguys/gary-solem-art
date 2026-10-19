@@ -1,0 +1,38 @@
+<ol class="story" role="list">
+  @for (entry of entries(); track entry.art.id) {
+    @let art = entry.art;
+    <li class="story__item" [class]="'story__item story__item--' + entry.layout" [class.is-reversed]="entry.reversed">
+      <figure class="story__figure">
+        <app-artwork-trigger class="story__media" [artwork]="art" [group]="items()" [sizes]="entry.sizes" />
+
+        @if (art.text || art.transcript || art.title) {
+          <figcaption class="story__text">
+            @if (art.text; as text) {
+              @if (showNumbers() && text.number) {
+                <p class="marker"><span class="visually-hidden">Number </span>{{ pad(text.number) }}</p>
+              }
+            }
+            @if (art.title) {
+              <h3 class="story__title">{{ art.title }}</h3>
+            }
+            @if (art.text; as text) {
+              @if (text.kind === 'poem') {
+                <p class="poem">
+                  @for (line of text.text | lines; track $index) {
+                    <span class="poem__line">{{ line }}</span>
+                  }
+                </p>
+              } @else {
+                <p class="story__statement">{{ text.text }}</p>
+              }
+            }
+            @if (art.transcript) {
+              <p class="story__transcript-label">Text in the artwork</p>
+              <p class="story__transcript">{{ art.transcript }}</p>
+            }
+          </figcaption>
+        }
+      </figure>
+    </li>
+  }
+</ol>

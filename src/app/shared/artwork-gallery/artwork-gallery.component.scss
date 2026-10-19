@@ -1,0 +1,120 @@
+.gallery {
+  display: grid;
+  gap: clamp(3rem, 7vw, 6rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.gallery__piece {
+  min-width: 0;
+}
+
+.gallery__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  min-width: 0;
+}
+
+/* Very tall pieces stay a readable width on phones instead of becoming metres long. */
+.gallery__row--tall > .gallery__piece {
+  width: min(100%, 15rem);
+  margin-inline: auto;
+}
+
+.gallery__caption {
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+}
+
+.gallery__title {
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+}
+
+.gallery__transcript-label {
+  margin: 0 0 0.35rem;
+  color: var(--ochre-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.gallery__transcript {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+/* Phones and small tablets: artwork runs edge to edge (except very tall strips); text keeps the margins. */
+@media (max-width: 799px) {
+  .gallery__row:not(.gallery__row--tall) > .gallery__piece,
+  .gallery__stack > .gallery__piece {
+    --trigger-inset: var(--gutter);
+    margin-inline: calc(-1 * var(--gutter));
+  }
+
+  .gallery__caption {
+    padding-inline: var(--gutter);
+  }
+}
+
+@media (min-width: 800px) {
+  .gallery__row--pair,
+  .gallery__row--tall {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+
+    .gallery__piece,
+    .gallery__stack {
+      flex-shrink: 1;
+      flex-basis: 0;
+    }
+  }
+
+  .gallery__row--tall > .gallery__piece {
+    width: auto;
+    margin: 0;
+  }
+
+  .gallery__row--single .gallery__piece {
+    width: 72%;
+    margin-inline: auto;
+  }
+
+  /* Editorial rhythm for runs of wide photographs */
+  .is-narrow-end .gallery__piece {
+    width: 82%;
+    margin-left: auto;
+  }
+
+  .is-narrow-start .gallery__piece {
+    width: 82%;
+  }
+
+  .is-narrow-end .gallery__caption {
+    margin-left: auto;
+  }
+}
+
+.is-bleed .gallery__piece {
+  --trigger-inset: var(--gutter);
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.is-bleed .gallery__caption {
+  padding-inline: var(--gutter);
+}

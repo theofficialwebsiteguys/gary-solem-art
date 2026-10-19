@@ -1,0 +1,33 @@
+<ul class="gallery" role="list">
+  @for (row of rows(); track row.cells[0].art.id) {
+    <li class="gallery__row" [class]="'gallery__row gallery__row--' + row.kind + ' is-' + row.width">
+      @for (c of row.cells; track c.art.id) {
+        <ng-container *ngTemplateOutlet="piece; context: { $implicit: c }" />
+      }
+      @if (row.side.length) {
+        <div class="gallery__stack" [style.flex-grow]="row.sideGrow">
+          @for (c of row.side; track c.art.id) {
+            <ng-container *ngTemplateOutlet="piece; context: { $implicit: c }" />
+          }
+        </div>
+      }
+    </li>
+  }
+</ul>
+
+<ng-template #piece let-c>
+  <figure class="gallery__piece" [style.flex-grow]="c.grow">
+    <app-artwork-trigger [artwork]="c.art" [group]="items()" [sizes]="c.sizes" />
+    @if (c.art.title || c.art.transcript) {
+      <figcaption class="gallery__caption">
+        @if (c.art.title) {
+          <p class="gallery__title">{{ c.art.title }}</p>
+        }
+        @if (c.art.transcript) {
+          <p class="gallery__transcript-label">Text in the artwork</p>
+          <p class="gallery__transcript">{{ c.art.transcript }}</p>
+        }
+      </figcaption>
+    }
+  </figure>
+</ng-template>
