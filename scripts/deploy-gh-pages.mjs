@@ -27,7 +27,8 @@ const remote = arg('remote', null) ?? git(['remote', 'get-url', 'origin'], ROOT)
 
 function run(cmd, args, cwd = ROOT) {
   console.log(`> ${cmd} ${args.join(' ')}`);
-  execFileSync(cmd, args, { cwd, stdio: 'inherit', shell: process.platform === 'win32' });
+  // Windows needs a shell to find npx.cmd; git runs without one so arguments with spaces stay intact.
+  execFileSync(cmd, args, { cwd, stdio: 'inherit', shell: process.platform === 'win32' && cmd === 'npx' });
 }
 
 function git(args, cwd) {
