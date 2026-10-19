@@ -25,10 +25,10 @@ const cname = arg('cname', null);
 const branch = arg('branch', 'gh-pages');
 const remote = arg('remote', null) ?? git(['remote', 'get-url', 'origin'], ROOT).trim();
 
+// No shell: arguments with spaces (such as the commit message) stay intact on every platform.
 function run(cmd, args, cwd = ROOT) {
-  console.log(`> ${cmd} ${args.join(' ')}`);
-  // Windows needs a shell to find npx.cmd; git runs without one so arguments with spaces stay intact.
-  execFileSync(cmd, args, { cwd, stdio: 'inherit', shell: process.platform === 'win32' && cmd === 'npx' });
+  console.log(`> ${path.basename(cmd)} ${args.join(' ')}`);
+  execFileSync(cmd, args, { cwd, stdio: 'inherit' });
 }
 
 function git(args, cwd) {
@@ -36,7 +36,7 @@ function git(args, cwd) {
 }
 
 // 1. Production build for the target URL.
-run('npx', ['ng', 'build', '--base-href', baseHref]);
+run(process.execPath, [path.join(ROOT, 'node_modules', '@angular', 'cli', 'bin', 'ng.js'), 'build', '--base-href', baseHref]);
 
 // 2. GitHub Pages extras:
 //    404.html — GitHub serves it for unknown paths, so direct visits to /my-art etc. load the app.
