@@ -79,7 +79,7 @@ export const FINDING_REASONS_STATEMENT: SourceText = {
   text: 'In being an artist, I don’t go to the beach to find inspiration. I go to the beach to feel human, and since I grew up on the beach in California, I will always find something interesting, even if it isn’t a mandala.',
 };
 
-// LIPS — definition plus numbered poems, paired with lips 1–10 (Wave Photography).
+// LIPS — definition plus numbered poems, paired with lips 1–10.
 export const LIP_DEFINITION: SourceText = {
   id: 'lips-definition',
   collection: 'lips',
@@ -174,10 +174,12 @@ export function sourceText(id: string): SourceText | undefined {
   return ALL_TEXT.find((t) => t.id === id);
 }
 
-/** Short verbatim quotations used as pull quotes. Each is an exact excerpt of a passage above. */
+/**
+ * Short verbatim quotations used as pull quotes. Each is an exact excerpt of a passage above.
+ * Gary asked for each phrase to appear only once, so add one only where the full passage
+ * isn't already on the same page.
+ */
 export const QUOTES = {
-  smoothState: 'All designs will return to their smooth state.',
-  rhythms: 'Rhythms of the ocean and beach remain the inspiration.',
   feelHuman: 'I go to the beach to feel human.',
 } as const;
 

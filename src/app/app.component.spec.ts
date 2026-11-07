@@ -22,6 +22,6 @@ describe('AppComponent', () => {
     const el = fixture.nativeElement as HTMLElement;
     expect(el.querySelector('.wordmark')?.textContent).toContain('Gary Solem Art');
     const labels = Array.from(el.querySelectorAll('.nav__link')).map((a) => a.textContent?.trim());
-    expect(labels).toEqual(['Home', 'My Art', 'Direct Photography', 'Wave Photography', 'Contact Me']);
+    expect(labels).toEqual(['Home', 'My Art', 'Direct Photography', 'Lips', 'Contact Me']);
   });
 });

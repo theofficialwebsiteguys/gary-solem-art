@@ -8,7 +8,7 @@ export const COLLECTIONS: Readonly<Record<CollectionId, CollectionInfo>> = {
   'intro-images': { id: 'intro-images', label: 'Beach Mandalas', route: '/my-art', anchor: 'beach-mandalas' },
   'collage-pieces': { id: 'collage-pieces', label: 'Collage Pieces', route: '/my-art', anchor: 'collage-pieces' },
   'finding-reasons': { id: 'finding-reasons', label: 'Finding Reasons', route: '/direct-photography', anchor: 'finding-reasons' },
-  lips: { id: 'lips', label: 'Lips', route: '/wave-photography', anchor: 'lips' },
+  lips: { id: 'lips', label: 'Lips', route: '/lips', anchor: 'lips' },
 };
 
 function toArtwork(file: ArtworkFile): Artwork {

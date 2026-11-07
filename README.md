@@ -2,7 +2,7 @@
 
 The website for Gary Solem's beach mandalas and photography. It is an Angular 19 single-page app with standalone components, signals, and SCSS custom properties, and it has no backend.
 
-Routes: `/` Home · `/my-art` · `/direct-photography` · `/wave-photography` · `/contact-me` · anything else → a not-found page.
+Routes: `/` Home · `/my-art` · `/direct-photography` · `/lips` (the old `/wave-photography` redirects here) · `/contact-me` · anything else → a not-found page.
 
 **Before launch:** see [Launch blockers](#launch-blockers). Content questions for Gary are in [CONTENT_REVIEW.md](CONTENT_REVIEW.md).
 
@@ -48,7 +48,7 @@ Page layouts follow each image's aspect ratio: wide pieces get full rows, medium
 All featured choices are in `src/app/content/page-copy.ts`:
 
 - `HOME.hero.slides`: the carousel images, in order. Each has an `artworkId`, a `focal` (desktop) and a `mobileFocal` (phone). Use single photographs only, because the hero fills the screen.
-- `HOME.explore.items[].image`, `markInTheSand.image`, `tideReturns.image`, `perspective.image` and `CONTACT_PAGE.image`.
+- `HOME.explore.items[].image`, the `opening.image` of `MY_ART`, `DIRECT_PHOTOGRAPHY` and `LIPS` (the section each collection page opens with), and `CONTACT_PAGE.image`.
 
 Focal points are CSS `object-position` values, such as `'78% 80%'` (x then y), and mark the part of the photo to keep. `fit: 'cover'` is ignored for composites, which always show whole.
 

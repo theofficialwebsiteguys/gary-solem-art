@@ -25,11 +25,13 @@ export const routes: Routes = [
     data: { description: META.direct } satisfies PageData,
   },
   {
-    path: 'wave-photography',
-    title: 'Wave Photography',
-    loadComponent: () => import('./pages/wave-photography/wave-photography.page').then((m) => m.WavePhotographyPage),
-    data: { description: META.wave } satisfies PageData,
+    path: 'lips',
+    title: 'Lips',
+    loadComponent: () => import('./pages/lips/lips.page').then((m) => m.LipsPage),
+    data: { description: META.lips } satisfies PageData,
   },
+  // The Lips page was called Wave Photography in earlier previews.
+  { path: 'wave-photography', redirectTo: 'lips', pathMatch: 'full' },
   {
     path: 'contact-me',
     title: 'Contact Me',

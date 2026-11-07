@@ -153,7 +153,7 @@ export const ARTWORK_DETAILS: Readonly<Record<string, ArtworkDetails>> = {
     notes: 'Working title from filename: "sandwalk2". Two photographs joined side by side.',
   },
 
-  // ─── Lips (Wave Photography) ───────────────────────────────────────────────
+  // ─── Lips ───────────────────────────────────────────────────────────────────
   'lips/1a-splash-dragon-edit': {
     format: 'single',
     alt: 'A breaking wave seen up close against a blue sky with clouds, its clear water thrown up into twisting, splashing shapes and droplets.',

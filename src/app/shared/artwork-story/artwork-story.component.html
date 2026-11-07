@@ -1,17 +1,16 @@
 <ol class="story" role="list">
   @for (entry of entries(); track entry.art.id) {
     @let art = entry.art;
-    <li class="story__item" [class]="'story__item story__item--' + entry.layout" [class.is-reversed]="entry.reversed">
+    <li class="story__item" [style.--ratio]="art.ratio">
       <figure class="story__figure">
+        @if (showNumbers() && entry.number) {
+          <p class="marker story__number"><span class="visually-hidden">Number </span>{{ pad(entry.number) }}</p>
+        }
+
         <app-artwork-trigger class="story__media" [artwork]="art" [group]="items()" [sizes]="entry.sizes" />
 
         @if (art.text || art.transcript || art.title) {
           <figcaption class="story__text">
-            @if (art.text; as text) {
-              @if (showNumbers() && text.number) {
-                <p class="marker"><span class="visually-hidden">Number </span>{{ pad(text.number) }}</p>
-              }
-            }
             @if (art.title) {
               <h3 class="story__title">{{ art.title }}</h3>
             }

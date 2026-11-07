@@ -10,7 +10,7 @@ Nothing in this file appears on the website. It records the decisions made while
 | Lips poem 8 (`8.traveling.png`) | Supplied as "…" only. The photograph is shown without text. | `LIP_POEMS` in `src/app/content/site-text.ts` |
 | Lips poem 10 (`10.overthere.png`) | Supplied as "…" only. The photograph is shown without text. | same |
 | Finding Reasons image 3 | The folder has files numbered 1, 2, 4 and 5. No file 3 was supplied. Was one left out? | add the file to `public/assets/finding-reasons/` |
-| Gary's personal story about the beach | Mentioned as a possibility; no details supplied. Nothing is shown. | `HOME.perspective.story` in `src/app/content/page-copy.ts` |
+| Gary's personal story about the beach | Mentioned as a possibility; no details supplied. Nothing is shown. | `DIRECT_PHOTOGRAPHY.opening.story` in `src/app/content/page-copy.ts` |
 | Artwork titles | None confirmed, so none are shown. Working titles from filenames are listed in section 4. | `title` in `src/app/content/artwork-details.ts` |
 | Collage texts | Gary's note: "Some have text that is with the image – the others don't have text. For now." More texts may follow. | `transcript` or `textId` in `artwork-details.ts` |
 | Approved light mockup | It wasn't included in the build conversation, so the site follows the written brief. Please compare the Home page with the mockup. | — |
@@ -31,7 +31,7 @@ Text is paired only within its own folder, and only where the filename number ma
 | 6 | `6.furry.png` | Statement 6 ("Rhythms of the ocean and beach remain the inspiration.") | Number match |
 | 7 | `7.intheout.png` | Statement 7 (editing within the mask in Photoshop) | Strong: number, plus the drawn mask panels |
 
-### Lips (Wave Photography)
+### Lips
 
 | # | File | Paired with | Confidence |
 | --- | --- | --- | --- |
@@ -77,7 +77,25 @@ Gary's text is used exactly as supplied. These are suggestions only.
 
 ## 5. Other decisions to review
 
-- **Cropping.** Every collage, diptych, bordered or captioned piece is always shown whole. Only single photographs are ever cropped, and only for the Home hero, the Explore links, "The tide returns" band and the social sharing image. `2_.png` and `DNA_ .png` show blended seams, so they are treated as composites.
+- **Cropping.** Every collage, diptych, bordered or captioned piece is always shown whole. Only single photographs are ever cropped, and only for the Home hero, the Explore links, the "The tide returns" band at the top of Lips and the social sharing image. `2_.png` and `DNA_ .png` show blended seams, so they are treated as composites.
 - **Image descriptions (alt text)** describe only what is visible. Please check them in `artwork-details.ts`, especially where Gary might name things differently.
-- **Interface copy** (short introductions such as "Quiet discoveries, details and observations from the sand.") is editorial summary, never presented as a quotation. It is all in `page-copy.ts` for Gary to edit.
+- **Interface copy** (short introductions such as "Finding Reasons: quiet discoveries in the sand.") is editorial summary, never presented as a quotation. It is all in `page-copy.ts` for Gary to edit.
 - **Hero selection**: `1.arrivaor` (first slide), `1a.Splash dragon`, `5. bubblehat`.
+
+## 6. Simplified text (November 2026)
+
+At Gary's request, each group of work appears once on Home, and each phrase appears once on the site. Gary's own words were kept. The site's summaries of them were removed. If Gary wants any of these back, or would rather write a "like version" so an idea echoes without repeating, it goes in `page-copy.ts` or `QUOTES` in `site-text.ts`.
+
+| Removed | Where it was | Why |
+| --- | --- | --- |
+| "Gary's mandalas are designs made on the beach… Some last up to twelve hours; others are swept away within seconds…" and "Each design is made spontaneously…" | "A mark in the sand" (Home), and the My Art lead | Restated intro statements 1 and 2, which appear in full under images 1 and 2 |
+| "All designs will return to their smooth state." (pull quote) | "A mark in the sand", My Art intro | A sentence from statement 1, on the same page |
+| "In Wave Photography, Gary turns to the lip of the wave — the surfers' word for the crest…" | "The tide returns" | A second explanation of a lip |
+| "Photographs of the lip of the wave in the moment it breaks…" | Wave Photography lead | Gary asked for this second explanation of a lip to go |
+| "Rhythms of the ocean and beach remain the inspiration." (pull quote) | "The tide returns" | Intro statement 6, shown in full under image 6 on My Art |
+| "Quiet discoveries, details and observations from the sand." | Direct Photography lead | Repeated the Home phrase "Finding Reasons: quiet discoveries in the sand." |
+| Finding Reasons statement at the top of Direct Photography | Direct Photography intro | The same statement is in "Gary's perspective", which now opens that page |
+| "Collage pieces" label above the "Collage Pieces" heading | My Art | Same words twice |
+| "Art, photography, and the rhythm of the tide." in the footer | Every page | Repeated the Home hero line |
+
+**Still repeated, on purpose for now:** "Gary's perspective" shows "I go to the beach to feel human." as a large quote and again inside the full Finding Reasons statement below it. Gary asked to see that section at the top of Direct Photography before deciding how to simplify it.

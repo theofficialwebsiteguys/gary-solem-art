@@ -23,6 +23,6 @@ export const MAIN_NAV: readonly NavItem[] = [
   { label: 'Home', path: '/' },
   { label: 'My Art', path: '/my-art' },
   { label: 'Direct Photography', path: '/direct-photography' },
-  { label: 'Wave Photography', path: '/wave-photography' },
+  { label: 'Lips', path: '/lips' },
   { label: 'Contact Me', path: '/contact-me' },
 ];
